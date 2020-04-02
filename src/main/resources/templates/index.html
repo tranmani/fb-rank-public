@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Động Hai Anh Phê Cần Ranking
+  </title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" th:href="@{img/brand/favicon.png}">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link th:href="@{js/plugins/nucleo/css/nucleo.css}" rel="stylesheet">
+  <link th:href="@{js/plugins/fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+  <!-- CSS Files -->
+  <link rel="stylesheet" th:href="@{css/argon-dashboard.min.css}">
+
+  <meta property="og:title" content="Động Hai Anh Phê Cần Ranking">
+  <meta property="og:description" content="Bảnh xếp hạng của Động Hai Anh Phê Cần và các thông tin bổ ích khác.">
+  <meta property="og:image" content="https://i.imgur.com/LQZiXqL.jpg">
+  <meta property="og:url" content="http://ranking.haianhphecan.com">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36117294-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-36117294-6');
+  </script>
+
+</head>
+
+<body class="">
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" th:href="@{/}">Động Hai Anh Phê Cần Ranking</a>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Tổng thành viên trong Động</h5>
+                      <span class="h2 font-weight-bold mb-0" th:text="${member}">thành viên</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Bài đăng trong 30 ngày</h5>
+                      <span class="h2 font-weight-bold mb-0" th:text="${interactPost}">post</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Bình luận trong 30 ngày</h5>
+                      <span class="h2 font-weight-bold mb-0" th:text="${interactComment}">bình luận</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Reactions trong 30 ngày</h5>
+                      <span class="h2 font-weight-bold mb-0" th:text="${interactReaction}">reaction</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--7">
+
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">BẢNG XẾP HẠNG TRONG 30 NGÀY GẦN NHẤT</h3><br>
+              <button style="margin-bottom: 10px" class="col-sm-12 col-md-4 col-lg-3 col-xl-2 btn btn-icon btn-3 btn-primary" type="button" id="top-thanh-vien-button">
+                <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                <span class="btn-inner--text">Top thành viên</span>
+              </button>
+              <button style="margin-bottom: 10px" class="col-sm-12 col-md-4 col-lg-3 col-xl-2 btn btn-icon btn-3 btn-secondary" type="button" id="top-bai-viet-button">
+                <span class="btn-inner--icon"><i class="ni ni-album-2"></i></span>
+                <span class="btn-inner--text">Top bài viết</span>
+              </button>
+            </div>
+
+            <div class="table-responsive" id="top-thanh-vien">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span> Thành viên</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-notification-70"></i></span> Bài đăng</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-diamond"></i></span> Bài đăng nằm trong top</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-chat-round"></i></span> Bình luận</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-favourite-28"></i></span> Điểm</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="contributor : ${contributors}">
+                  <th:block th:switch="${contributor.id}">
+                    <div th:case="1">
+                      <th scope="row" style="font-size: 1.7em">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                    <div th:case="2">
+                      <th scope="row"  style="font-size: 1.55em">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                    <div th:case="3">
+                      <th scope="row"  style="font-size: 1.4em">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                    <div th:case="*">
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                  </th:block>
+                  <td th:text="${contributor.post}">
+                    Post
+                  </td>
+                  <td th:text="${contributor.featurePost}">
+                    Feature post
+                  </td>
+                  <td th:text="${#numbers.formatDecimal(contributor.comment, 0, 'COMMA', 0, 'POINT')}">
+                    Comment
+                  </td>
+                  <td th:text="${#numbers.formatDecimal(contributor.point, 0, 'COMMA', 0, 'POINT')}">
+                    Point
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive" id="top-bai-viet">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span> Thành viên</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-notification-70"></i></span> Caption</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-chat-round"></i></span> Bình luận</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-like-2"></i></span> Like</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-world"></i></span> View</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="post : ${posts}">
+                  <th:block th:switch="${post.id}">
+                    <div th:case="1">
+                      <th scope="row" style="font-size: 1.7em">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                    <div th:case="2">
+                      <th scope="row"  style="font-size: 1.55em">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                    <div th:case="3">
+                      <th scope="row"  style="font-size: 1.4em">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                    <div th:case="*">
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                          </div>
+                        </div>
+                      </th>
+                    </div>
+                  </th:block>
+                  <td th:if="${post.caption.length() < 30}"><a th:href="${post.link}"  th:text="${post.caption}">
+                    Caption
+                  </a></td>
+                  <td th:unless="${post.caption.length() < 30}"><a th:text="${post.caption.substring(0, 30)} + '...'" th:href="${post.link}" th:target="blank">
+                    Caption
+                  </a></td>
+                  <td th:text="${#numbers.formatDecimal(post.comment, 0, 'COMMA', 0, 'POINT')}">
+                    Comment
+                  </td>
+                  <td th:text="${#numbers.formatDecimal(post.reaction, 0, 'COMMA', 0, 'POINT')}">
+                    Reaction
+                  </td>
+                  <td th:text="${#numbers.formatDecimal(post.view, 0, 'COMMA', 0, 'POINT')}">
+                    View
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+          <div class="col-xl-6">
+            <div class="copyright text-center text-xl-left text-muted">
+              © 2019 <a href="http://fb.com/tranmani251" class="font-weight-bold ml-1" target="_blank">tranmani</a> -
+              <a href="http://fb.com/groups/dongphecan2" class="font-weight-bold ml-1" target="_blank">Động</a> -
+              <a href="http://fb.com/2anhphecanpage" class="font-weight-bold ml-1" target="_blank">Page</a>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+              <li class="nav-item">
+                <a>Template from Creative Tim</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--  <script th:src="@{js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>-->
+<!--  &lt;!&ndash;   Argon JS   &ndash;&gt;-->
+<!--  <script th:src="@{js/argon-dashboard.min.js}"></script>-->
+  <script>
+    $(document).ready(function(){
+      $("#top-bai-viet").hide();
+      $("#top-thanh-vien-button").on("click", function(){
+        $("#top-bai-viet-button").addClass("btn-secondary").removeClass("btn-primary");
+        $("#top-thanh-vien-button").addClass("btn-primary").removeClass("btn-secondary");
+        $("#top-bai-viet").hide();
+        $('#top-thanh-vien').fadeIn().fadeIn("slow").fadeIn(100);
+      });
+      $("#top-bai-viet-button").on("click", function(){
+        $("#top-thanh-vien-button").addClass("btn-secondary").removeClass("btn-primary");
+        $("#top-bai-viet-button").addClass("btn-primary").removeClass("btn-secondary");
+        $("#top-thanh-vien").hide();
+        $("#top-bai-viet").fadeIn().fadeIn("slow").fadeIn(100);
+      });
+    });
+  </script>
+</body></html>

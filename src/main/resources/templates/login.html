@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:fb="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Login - Động Hai Anh Phê Cần Ranking
+  </title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" th:href="@{img/brand/favicon.png}">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link th:href="@{js/plugins/nucleo/css/nucleo.css}" rel="stylesheet">
+  <link th:href="@{js/plugins/fortawesome/fontawesome-free/css/all.min.css}" rel="stylesheet">
+  <!-- CSS Files -->
+  <link rel="stylesheet" th:href="@{css/argon-dashboard.min.css}">
+
+  <meta property="og:title" content="Động Hai Anh Phê Cần Ranking">
+  <meta property="og:description" content="Bảnh xếp hạng của Động Hai Anh Phê Cần và các thông tin bổ ích khác.">
+  <meta property="og:image" content="https://i.imgur.com/LQZiXqL.jpg">
+  <meta property="og:url" content="http://ranking.haianhphecan.com">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36117294-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-36117294-6');
+  </script>
+
+  <script>
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      console.log(response);
+      // The response object is returned with a status field that lets the
+      // app know the current login status of the person.
+      // Full docs on the response object can be found in the documentation
+      // for FB.getLoginStatus().
+      if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        testAPI();
+        window.location.href = "https://ranking.haianhphecan.com";
+      } else {
+        // The person is not logged into your app or we are unable to tell.
+        document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+      }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '499562394146432',
+        cookie     : true,  // enable cookies to allow the server to access
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v3.3' // The Graph API version to use for the call
+      });
+
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+
+    };
+
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+    function testAPI() {
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', function(response) {
+        console.log('Successful login for: ' + response.name);
+        document.getElementById('status').innerHTML =
+                'Thanks for logging in, ' + response.name + '!';
+      });
+    }
+  </script>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.3&appId=499562394146432"></script>
+</head>
+
+<body class="">
+  
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" th:href="@{/}">Động Hai Anh Phê Cần Ranking</a>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+              <div id="status">
+              </div>
+<!--              <span><p th:text="'Hello ' + ${name}"></p></span>-->
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+          <div class="col-xl-6">
+           <div class="copyright text-center text-xl-left text-muted">
+              © 2019 <a href="http://fb.com/tranmani251" class="font-weight-bold ml-1" target="_blank">tranmani</a> -
+              <a href="http://fb.com/groups/dongphecan2" class="font-weight-bold ml-1" target="_blank">Động</a> -
+              <a href="http://fb.com/2anhphecanpage" class="font-weight-bold ml-1" target="_blank">Page</a>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+              <li class="nav-item">
+                <a>Template from Creative Tim</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+<!--  &lt;!&ndash;   Core   &ndash;&gt;-->
+<!--  <script th:src="@{js/plugins/jquery/dist/jquery.min.js}"></script>-->
+<!--  <script th:src="@{js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>-->
+<!--  &lt;!&ndash;   Argon JS   &ndash;&gt;-->
+<!--  <script th:src="@{js/argon-dashboard.min.js}"></script>-->
+
+
+</body></html>
