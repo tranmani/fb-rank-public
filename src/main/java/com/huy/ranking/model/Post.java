@@ -32,6 +32,10 @@ public class Post implements Comparable<Post> {
         this.point = (int) (comment + reaction + view);
     }
 
+    public void resetId() {
+        lastId = 1;
+    }
+
     public int getId() {
         return id;
     }

@@ -14,39 +14,26 @@ import java.util.Locale;
 @Controller
 @RequestMapping(path = "/")
 public class RankController {
-//    public static void main(String[] args) {
-//        FacebookClient facebookClient = new DefaultFacebookClient(Constant.MY_ACCESS_TOKEN, Version.LATEST);
-//
-//        User user = facebookClient.fetchObject("me/groups", User.class);
-//
-//        System.out.println(user);
-//    }
 
     @GetMapping(path = "")
     public String showRankingPage(Model model) {
-        model.addAttribute("contributors", ContributorDataProvider.getContributor());
-        model.addAttribute("posts", PostDataProvider.getPosts());
-        model.addAttribute("interactPost", NumberFormat.getNumberInstance(Locale.US).format(InteractDataProvider.getInteracts().get(0).getPost()));
-        model.addAttribute("interactComment", NumberFormat.getNumberInstance(Locale.US).format(InteractDataProvider.getInteracts().get(0).getComment()));
-        model.addAttribute("interactReaction", NumberFormat.getNumberInstance(Locale.US).format(InteractDataProvider.getInteracts().get(0).getReaction()));
-        model.addAttribute("member", NumberFormat.getNumberInstance(Locale.US).format(ExcelReader.getMember()));
+        model.addAttribute("contributors", FinalListToUse.getHaiAnhPheCan().getContributors());
+        model.addAttribute("posts", FinalListToUse.getHaiAnhPheCan().getPosts());
+        model.addAttribute("interactPost", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getHaiAnhPheCan().getInteracts().get(0).getPost()));
+        model.addAttribute("interactComment", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getHaiAnhPheCan().getInteracts().get(0).getComment()));
+        model.addAttribute("interactReaction", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getHaiAnhPheCan().getInteracts().get(0).getReaction()));
+        model.addAttribute("member", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getHaiAnhPheCan().getTotalMember()));
         return "index";
     }
 
-    @GetMapping(path = "login")
-    public String showLoginPage(Model model) {
-//        FacebookClient facebookClient = new DefaultFacebookClient(Constant.MY_ACCESS_TOKEN, Version.LATEST);
-//
-//        User user = facebookClient.fetchObject("me", User.class);
-//
-//        model.addAttribute("name", user.getName());
-//        System.out.println(user);
-        return "login";
-    }
-
-    @GetMapping(path = "insight")
-    public String newestInsight(Model model) {
-        model.addAttribute("insight", ExcelReader.FILE_NAME);
-        return "insight";
-    }
+//    @GetMapping(path = "/rank2")
+//    public String showRankingPage2(Model model) {
+//        model.addAttribute("contributors", FinalListToUse.getBackyardOfHeaven().getContributors());
+//        model.addAttribute("posts", FinalListToUse.getBackyardOfHeaven().getPosts());
+//        model.addAttribute("interactPost", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getBackyardOfHeaven().getInteracts().get(0).getPost()));
+//        model.addAttribute("interactComment", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getBackyardOfHeaven().getInteracts().get(0).getComment()));
+//        model.addAttribute("interactReaction", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getBackyardOfHeaven().getInteracts().get(0).getReaction()));
+//        model.addAttribute("member", NumberFormat.getNumberInstance(Locale.US).format(FinalListToUse.getBackyardOfHeaven().getTotalMember()));
+//        return "index2";
+//    }
 }

@@ -22,6 +22,14 @@ public class PostDataProvider {
             posts.add(new Post(postsToBeSorted.get(i).getMember(), postsToBeSorted.get(i).getCaption(),
                     postsToBeSorted.get(i).getComment(), postsToBeSorted.get(i).getReaction(),
                     postsToBeSorted.get(i).getView(), postsToBeSorted.get(i).getLink(), true));
+            if (posts.get(i).getId() == 50) {
+                posts.get(i).resetId();
+            }
         }
+    }
+
+    public static void clearList() {
+        posts.clear();
+        postsToBeSorted.clear();
     }
 }

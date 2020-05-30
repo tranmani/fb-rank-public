@@ -12,43 +12,20 @@ import java.io.IOException;
 import java.util.*;
 
 public class ExcelReader {
-    public static String FILE_NAME = "insight.xlsx";
     private static double memberInteract = 0;
 
-    public static void readExcel() {
+    public static void readExcel(String FILE_NAME) {
         try {
-            //Get the most recent file in insight folder
-//            File file = new File("insight");
-//            File[] files = file.listFiles();
-//            long lastModifiedTime = Long.MIN_VALUE;
-//
-//            if (files != null) {
-//                for (File f : files) {
-//                    if (f.lastModified() > lastModifiedTime) {
-//                        FILE_NAME = String.valueOf(f);
-//                        lastModifiedTime = f.lastModified();
-//                    }
-//                }
-//            }
-
-//            assert files != null;
-//            Arrays.sort(files, (o1, o2) -> Long.compare(o2.lastModified(), o1.lastModified()));
-//            Thread.sleep(100);
-//            FILE_NAME = String.valueOf(files[0]);
-//            Thread.sleep(100);
-//            for (File value : files) {
-//                System.out.println(value);
-//            }
-//
-//            System.out.println("Using this:");
-//            System.out.println(FILE_NAME);
-
             FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
             XSSFWorkbook workbook = new XSSFWorkbook(excelFile);
             XSSFSheet contributorSheet = workbook.getSheetAt(7);
             XSSFSheet interactSheet = workbook.getSheetAt(0);
             XSSFSheet postSheet = workbook.getSheetAt(3);
             DataFormatter dataFormatter = new DataFormatter();
+
+            ContributorDataProvider.clearList();
+            PostDataProvider.clearList();
+            InteractDataProvider.clearList();
 
             //Iterate interaction sheet
             Iterator<Row> interactRow = interactSheet.rowIterator();
@@ -88,6 +65,9 @@ public class ExcelReader {
                 String link = null;
 
                 caption = dataFormatter.formatCellValue(currentPost.getCell(0));
+                if (caption.equals("")) {
+                    caption = "Link";
+                }
                 if (currentPost.getCell(1).getCellTypeEnum() == CellType.STRING) {
                     member = currentPost.getCell(1).getStringCellValue();
                 }

@@ -93,7 +93,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
+                        <i class="fas fa-comments"></i>
                       </div>
                     </div>
                   </div>
@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
+                        <i class="fas fa-heart"></i>
                       </div>
                     </div>
                   </div>
@@ -118,7 +118,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -155,31 +154,37 @@
                 <tr th:each="contributor : ${contributors}">
                   <th:block th:switch="${contributor.id}">
                     <div th:case="1">
-                      <th scope="row" style="font-size: 1.7em">
+                      <th scope="row" style="font-size: 1.9em">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <span style="width: 70px" class="text-center">
+                            <img style="width: 2em" th:src="@{icons/first-contributor.svg}">
+                          </span>
                           <div class="media-body">
-                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                            <span class="mb-0" th:text="${contributor.name}">Name</span>
                           </div>
                         </div>
                       </th>
                     </div>
                     <div th:case="2">
-                      <th scope="row"  style="font-size: 1.55em">
+                      <th scope="row" style="font-size: 1.7em">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <span style="width: 70px" class="text-center">
+                            <img style="width: 1.7em" th:src="@{icons/second-contributor.svg}">
+                          </span>
                           <div class="media-body">
-                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                            <span class="mb-0" style="font-size: 0.9em" th:text="${contributor.name}">Name</span>
                           </div>
                         </div>
                       </th>
                     </div>
                     <div th:case="3">
-                      <th scope="row"  style="font-size: 1.4em">
+                      <th scope="row" style="font-size: 1.55em">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <span style="width: 70px" class="text-center">
+                            <img style="width: 1.5em" th:src="@{icons/third-contributor.svg}">
+                          </span>
                           <div class="media-body">
-                            <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
+                            <span class="mb-0" style="font-size: 0.8em" th:text="${contributor.name}">Name</span>
                           </div>
                         </div>
                       </th>
@@ -187,7 +192,7 @@
                     <div th:case="*">
                       <th scope="row">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${contributor.id}">ID</span>
+                          <span style="width: 70px; font-size: 1.2em" class="text-center" th:text="'#' + ${contributor.id}"></span>
                           <div class="media-body">
                             <span class="mb-0 text-sm"  th:text="${contributor.name}">Name</span>
                           </div>
@@ -198,8 +203,14 @@
                   <td th:text="${contributor.post}">
                     Post
                   </td>
-                  <td th:text="${contributor.featurePost}">
-                    Feature post
+                  <td>
+                    <span th:text="${contributor.numberOfFeaturePost}"></span>
+                    <span th:if="${contributor.topFeaturePost.size() != 0}">
+                      <span> bài trong top: </span>
+                      <span th:each="topFeaturePost : ${contributor.topFeaturePost}">
+                        <span th:text="${topFeaturePost}"></span>
+                      </span>
+                    </span>
                   </td>
                   <td th:text="${#numbers.formatDecimal(contributor.comment, 0, 'COMMA', 0, 'POINT')}">
                     Comment
@@ -217,7 +228,7 @@
                 <thead class="thead-light">
                 <tr>
                   <th scope="col"><span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span> Thành viên</th>
-                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-notification-70"></i></span> Caption</th>
+                  <th scope="col"><span class="btn-inner--icon"><i class="ni ni-notification-70"></i></span> Caption/Link</th>
                   <th scope="col"><span class="btn-inner--icon"><i class="ni ni-chat-round"></i></span> Bình luận</th>
                   <th scope="col"><span class="btn-inner--icon"><i class="ni ni-like-2"></i></span> Like</th>
                   <th scope="col"><span class="btn-inner--icon"><i class="ni ni-world"></i></span> View</th>
@@ -227,31 +238,37 @@
                 <tr th:each="post : ${posts}">
                   <th:block th:switch="${post.id}">
                     <div th:case="1">
-                      <th scope="row" style="font-size: 1.7em">
+                      <th scope="row" style="font-size: 1.9em">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <span style="width: 70px" class="text-center">
+                            <img style="width: 2em" th:src="@{icons/first-post.svg}">
+                          </span>
                           <div class="media-body">
-                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                            <span class="mb-0"  th:text="${post.member}">Name</span>
                           </div>
                         </div>
                       </th>
                     </div>
                     <div th:case="2">
-                      <th scope="row"  style="font-size: 1.55em">
+                      <th scope="row"  style="font-size: 1.7em">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <span style="width: 70px" class="text-center">
+                            <img style="width: 1.7em" th:src="@{icons/second-post.svg}">
+                          </span>
                           <div class="media-body">
-                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                            <span class="mb-0" style="font-size: 0.9em" th:text="${post.member}">Name</span>
                           </div>
                         </div>
                       </th>
                     </div>
                     <div th:case="3">
-                      <th scope="row"  style="font-size: 1.4em">
+                      <th scope="row"  style="font-size: 1.55em">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <span style="width: 70px" class="text-center">
+                            <img style="width: 1.5em" th:src="@{icons/third-post.svg}">
+                          </span>
                           <div class="media-body">
-                            <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
+                            <span class="mb-0" style="font-size: 0.8em" th:text="${post.member}">Name</span>
                           </div>
                         </div>
                       </th>
@@ -259,7 +276,7 @@
                     <div th:case="*">
                       <th scope="row">
                         <div class="media align-items-center">
-                          <span style="padding-right: 10px; font-size: 1.2em" th:text="'#' + ${post.id}">ID</span>
+                          <span style="width: 70px; font-size: 1.2em" class="text-center" th:text="'#' + ${post.id}"></span>
                           <div class="media-body">
                             <span class="mb-0 text-sm"  th:text="${post.member}">Name</span>
                           </div>
@@ -294,7 +311,11 @@
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              © 2019 <a href="http://fb.com/tranmani251" class="font-weight-bold ml-1" target="_blank">tranmani</a> -
+              © 2020 with
+              <span>
+                <img style="width: 1em" th:src="@{icons/heart.svg}">
+              </span>
+              by<a href="http://tranmani.com" class="font-weight-bold ml-1" target="_blank">tranmani</a> -
               <a href="http://fb.com/groups/dongphecan2" class="font-weight-bold ml-1" target="_blank">Động</a> -
               <a href="http://fb.com/2anhphecanpage" class="font-weight-bold ml-1" target="_blank">Page</a>
             </div>
@@ -312,9 +333,7 @@
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--  <script th:src="@{js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>-->
-<!--  &lt;!&ndash;   Argon JS   &ndash;&gt;-->
-<!--  <script th:src="@{js/argon-dashboard.min.js}"></script>-->
+
   <script>
     $(document).ready(function(){
       $("#top-bai-viet").hide();
@@ -332,4 +351,5 @@
       });
     });
   </script>
-</body></html>
+</body>
+</html>

@@ -1,29 +1,43 @@
 package com.huy.ranking.model;
 
+import java.util.ArrayList;
+
 public class Contributor implements Comparable<Contributor> {
     private int id;
     private static int lastId = 1;
     private String name;
     private int post;
     private int comment;
-    private int featurePost;
+    private int numberOfFeaturePost;
+    private int bonusFromTopPost;
     private int point;
+    private ArrayList<Integer> topFeaturePost;
 
-    public Contributor(String name, double post, double comment, int featurePost) {
+    public Contributor(String name, double post, double comment, int numberOfFeaturePost, int bonusFromTopPost, ArrayList<Integer> topFeaturePost) {
         this.name = name;
         this.post = (int) post;
         this.comment = (int) comment;
-        this.featurePost = featurePost;
-        this.point = (int) Math.round((post * 26.4) + (comment * 1.25)) + (featurePost * 57);
-}
+        this.numberOfFeaturePost = numberOfFeaturePost;
+        this.point = (int) Math.round((post * 26.4) + (comment * 1.25) + ((numberOfFeaturePost + bonusFromTopPost) * 57));
+        this.topFeaturePost = new ArrayList<>(topFeaturePost);
+    }
 
-    public Contributor(String name, double post, double comment, int featurePost, boolean haveId) {
+    public Contributor(String name, double post, double comment, int numberOfFeaturePost, int point, ArrayList<Integer> topFeaturePost, boolean haveId) {
         this.id = lastId++;
         this.name = name;
-        this.post = (int) post;;
+        this.post = (int) post;
         this.comment = (int) comment;
-        this.featurePost = featurePost;
-        this.point = (int) ((int) (post * 26.4) + (comment * 1.25)) + (featurePost * 57);
+        this.numberOfFeaturePost = numberOfFeaturePost;
+        this.point = point;
+        this.topFeaturePost = new ArrayList<>(topFeaturePost);
+    }
+
+    public ArrayList<Integer> getTopFeaturePost() {
+        return topFeaturePost;
+    }
+
+    public void resetId() {
+        lastId = 1;
     }
 
     public int getId() {
@@ -54,12 +68,12 @@ public class Contributor implements Comparable<Contributor> {
         this.comment = comment;
     }
 
-    public int getFeaturePost() {
-        return featurePost;
+    public int getNumberOfFeaturePost() {
+        return numberOfFeaturePost;
     }
 
-    public void setFeaturePost(int featurePost) {
-        this.featurePost = featurePost;
+    public void setNumberOfFeaturePost(int numberOfFeaturePost) {
+        this.numberOfFeaturePost = numberOfFeaturePost;
     }
 
     public int getPoint() {
@@ -77,7 +91,7 @@ public class Contributor implements Comparable<Contributor> {
                 ", name='" + name + '\'' +
                 ", post=" + post +
                 ", comment=" + comment +
-                ", featurePost=" + featurePost +
+                ", featurePost=" + numberOfFeaturePost +
                 ", point=" + point +
                 '}';
     }

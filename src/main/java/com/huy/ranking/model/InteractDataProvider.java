@@ -28,4 +28,8 @@ public class InteractDataProvider {
         interacts.add(new Interact(post, comment, reaction));
     }
 
+    public static void clearList() {
+        interacts.clear();
+        interactsToBeSum.clear();
+    }
 }
